@@ -1,0 +1,13 @@
+{
+    "name": "pandora/pandora",
+    "description": "Sistema de Gerenciamento de Buffet",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src"
+        }
+    },
+    "require": {
+        "erandir/plug-route": "^3.0"
+    }
+}
