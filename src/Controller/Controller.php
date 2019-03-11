@@ -8,7 +8,7 @@
 
 namespace App\Controller;
 use App\Resources\Exceptions\MissingTableModelException;
-use App\Resourses\View;
+use App\Resources\View;
 use App\Util\Router;
 
 abstract class Controller
