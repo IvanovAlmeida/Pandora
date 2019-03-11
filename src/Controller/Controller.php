@@ -7,15 +7,28 @@
  */
 
 namespace App\Controller;
+use App\Resources\Exceptions\MissingTableModelException;
+use App\Resourses\View;
 use App\Util\Router;
 
 abstract class Controller
 {
+    protected $view;
+
+    public function __construct()
+    {
+        $this->view = new View();
+    }
+
+    protected function setModel(string $model){
+        //throw new MissingTableModelException("Model {$model} não encontrado!");
+    }
+
     /**
      * @param string $_name
      * @param array $vars
      */
-    protected final function view(string $_name, array $vars = []){
+    protected function renderView(string $_name, array $vars = []){
         $_filename = __DIR__ . "/../View/{$_name}.php";
         if(!file_exists($_filename))
             die("View {$_name} not found!");

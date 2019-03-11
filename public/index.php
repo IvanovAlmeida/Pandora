@@ -12,5 +12,8 @@ $route->get('/users', '\App\Controller\UsersController@index');
 $route->get('/users/{id:\d+}', '\App\Controller\UsersController@ver');
 
 
+$route->match(['GET', 'POST'], '/login', '\App\Controller\UsersController@login');
+
+
 
 $route->on();

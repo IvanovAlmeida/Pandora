@@ -1,16 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ivano
- * Date: 10/03/2019
- * Time: 00:04
- */
-
-namespace App\Util;
+namespace App\Resourses;
 
 /**
  * Class Router
- * @package App\Util
+ * @package App\Resourses
  * @method get
  * @method post
  */
