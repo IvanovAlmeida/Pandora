@@ -3,18 +3,23 @@ namespace App\Controller;
 
 class ReservesController extends Controller
 {
+    /**
+     * ReservesController constructor.
+     * @param \PlugRoute\Http\Request $request
+     * @throws \App\Resources\Exceptions\MissingLayoutException
+     */
     public function __construct(\PlugRoute\Http\Request $request)
     {
         parent::__construct($request);
-        $this->view->setLayout('default');
     }
 
+    /**
+     * @throws \App\Resources\Exceptions\MissingViewException
+     */
     public function index(){
-        var_dump($this->getRequest()->getMethod());
+        $this->View->set("teste", 'alow');
 
-        $this->view->set("teste", 'alow');
-
-        $this->view->setView('Reserves.index');
-        $this->view->render();
+        $this->View->setView('Reserves.index');
+        $this->View->render();
     }
 }

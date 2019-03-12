@@ -15,13 +15,20 @@ use PlugRoute\Route;
 
 class ItemController extends Controller
 {
+    /**
+     * ItemController constructor.
+     * @param Request $request
+     * @throws \App\Resources\Exceptions\MissingLayoutException
+     */
     public function __construct(\PlugRoute\Http\Request $request)
     {
         parent::__construct($request);
     }
 
+    /**
+     * @throws \App\Resources\Exceptions\MissingViewException
+     */
     public function index(){
-
         $itens = [];
 
         $i = new Item();
@@ -49,12 +56,19 @@ class ItemController extends Controller
         $i->nome = "Teste 33";
         $itens[] = $i;
 
-        $this->renderView("Itens", ["itens" => $itens]);
+        $this->View->set("itens", $itens)
+            ->setView('Items.index')
+            ->render();
     }
 
+    /**
+     * @throws \App\Resources\Exceptions\MissingViewException
+     */
     public function view(){
         $id = $this->getRequest()->parameter('id');
 
-        $this->renderView('Usuarios', ['id' => $id]);
+        $this->View->set("id", $id)
+            ->setView('Items.view')
+            ->render();
     }
 }
