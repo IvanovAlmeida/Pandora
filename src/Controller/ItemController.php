@@ -15,7 +15,12 @@ use PlugRoute\Route;
 
 class ItemController extends Controller
 {
-    public function index(\PlugRoute\Http\Request $request){
+    public function __construct(\PlugRoute\Http\Request $request)
+    {
+        parent::__construct($request);
+    }
+
+    public function index(){
 
         $itens = [];
 
@@ -44,14 +49,12 @@ class ItemController extends Controller
         $i->nome = "Teste 33";
         $itens[] = $i;
 
-        return self::view("Itens", ["itens" => $itens]);
+        $this->renderView("Itens", ["itens" => $itens]);
     }
 
-    public function ver(\PlugRoute\Http\Request $request){
-        $id = $request->parameter('id');
+    public function view(){
+        $id = $this->getRequest()->parameter('id');
 
-        //$this->Item->get($id);
-
-        self::view('Usuarios', ['id' => $id]);
+        $this->renderView('Usuarios', ['id' => $id]);
     }
 }

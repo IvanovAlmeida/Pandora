@@ -9,21 +9,32 @@
 namespace App\Controller;
 use App\Resources\Exceptions\MissingTableModelException;
 use App\Resources\View;
-use App\Util\Router;
 
 abstract class Controller
 {
     protected $view;
+    private $model;
+    private $request;
 
-    public function __construct()
+    /**
+     * Controller constructor.
+     * @param \PlugRoute\Http\Request $request
+     */
+    public function __construct(\PlugRoute\Http\Request $request)
     {
+        $this->request = $request;
         $this->view = new View();
     }
 
-    protected function setModel(string $model){
-        //throw new MissingTableModelException("Model {$model} não encontrado!");
+    /**
+     * @return \PlugRoute\Http\Request
+     */
+    public function getRequest(){
+        return $this->request;
     }
 
+    protected function setModel(string $model){
+    }
     /**
      * @param string $_name
      * @param array $vars
@@ -33,15 +44,12 @@ abstract class Controller
         if(!file_exists($_filename))
             die("View {$_name} not found!");
 
-
         if(!empty($vars)){
             foreach ($vars as $key => $var){
                 $$key = $var;
             }
         }
-
         unset($vars);
-
         include_once $_filename;
     }
 
