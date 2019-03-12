@@ -29,7 +29,7 @@ class View
      * @param null $data
      * @return $this
      */
-    public function set(string $name, $data = null){
+    public function set(string $name, $data = null) : View {
         $this->_viewData[$name] = $data;
         return $this;
     }
@@ -59,7 +59,7 @@ class View
      * @return $this
      * @throws MissingLayoutException
      */
-    public function setLayout(string $layout){
+    public function setLayout(string $layout) : View {
         $dir = __DIR__ . "/../View/Layout/{$layout}.php";
         if(!file_exists($dir))
             throw new MissingLayoutException("Layout {$layout} não encontrado.");
@@ -71,7 +71,7 @@ class View
     /**
      * @return string
      */
-    public function getLayout(){
+    public function getLayout() : string {
         return $this->_layout;
     }
 
@@ -80,7 +80,7 @@ class View
      * @return $this
      * @throws MissingViewException
      */
-    public function setView(string $view){
+    public function setView(string $view) : View {
         $pathToView = str_replace('.', DS, $view);
         $dir = __DIR__ . "/../View/{$pathToView}.php";
 
@@ -94,16 +94,34 @@ class View
     /**
      * @return mixed
      */
-    public function getView(){
+    public function getView() : string {
         return $this->_view;
     }
 
-    public function css(string $css){
+    /**
+     * @param string $css
+     * @return string
+     */
+    public function css(string $css) : string {
         $html = '<link href="' . __CSS__ . $css . '" rel="stylesheet">';
         return $html;
     }
-    public function js (string $js){
-        $html = "<script src='" . __JS__ . $js . "'></script>";
+
+    /**
+     * @param string $js
+     * @return string
+     */
+    public function js (string $js) : string {
+        $html = '<script src="' . __JS__ . $js . '"></script>';
         return $html;
+    }
+
+    /**
+     * @param string $img
+     * @return string
+     */
+    public function img(string $img) : string {
+        $path = __IMG__ . $img;
+        return $path;
     }
 }

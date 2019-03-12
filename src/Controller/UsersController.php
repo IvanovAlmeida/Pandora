@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\Table\UsersTable;
+
 /**
  * Class UsersController
  * @package App\Controller
@@ -34,20 +36,29 @@ class UsersController extends Controller
         $u->name = "Nome 2";
         $users[] = $u;
 
+        $table = new UsersTable();
+
+
         $this->View->set('users', $users);
         $this->View->setView('Users.index');
         $this->View->render();
     }
 
     public function view (){
+
+
         $this->View->render();
     }
 
+    /**
+     * @throws \App\Resources\Exceptions\MissingLayoutException
+     * @throws \App\Resources\Exceptions\MissingViewException
+     */
     public function login(){
         if($this->getRequest()->getMethod() == "POST"){
             $data = $this->getRequest()->getBodyFormData();
         }
-        $this->View->render();
+        $this->View->setLayout('login')->setView('Users.login')->render();
     }
 
 }
