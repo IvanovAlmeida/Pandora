@@ -152,7 +152,7 @@ class QueryBuilder
 
         //SELECT {fields} FROM <JOIN> {table} <WHERE> <GROUP> <ORDER> <HAVING> <LIMIT>;
         //junta o comando
-        $sql = implode('', $command);;
+        $sql = implode(' ', $command);;
 
         return $this->executeSelect($sql, $values);
     }

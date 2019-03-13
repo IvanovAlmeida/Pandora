@@ -23,7 +23,7 @@ class User extends Entity
 
     public function setPassword(string $pass){
         if(!empty($pass))
-            $this->password = password_hash($pass, 2);
+            $this->password = password_hash($pass, PASSWORD_BCRYPT, ['cost' => 12]);
     }
 
     /**

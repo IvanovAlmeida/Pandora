@@ -9,24 +9,26 @@
     <hr>
 </div>
 <div class="col-sm-12">
-    <div class="row">
-        <table class="table">
-            <tbody>
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>E-Mail</th>
+            <th>Criado</th>
+            <th>Atualizado</th>
+        </tr>
+        </tbody>
+        <tbody>
+        <?php foreach($users as $user): ?>
             <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>E-Mail</th>
+                <td><?= $user->id ?></td>
+                <td><?= $user->username ?></td>
+                <td><?= $user->email ?></td>
+                <td><?= $user->created_at ?></td>
+                <td><?= $user->updated_at ?></td>
             </tr>
-            </tbody>
-            <tbody>
-            <?php foreach($users as $user): ?>
-                <tr>
-                    <td><?= $user->id ?></td>
-                    <td><?= $user->username ?></td>
-                    <td><?= $user->email ?></td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
 </div>

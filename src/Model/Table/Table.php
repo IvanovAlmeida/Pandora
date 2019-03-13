@@ -8,7 +8,7 @@ class Table
     /**
      * @var QueryBuilder
      */
-    protected $query;
+    public $query;
 
     public function __construct(string $dbTable)
     {
