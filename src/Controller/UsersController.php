@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Model\Table\UsersTable;
+use App\Model\Entity\User;
+use PlugRoute\Http\Response;
+use \PlugRoute\Http\Request;
 
 /**
  * Class UsersController
@@ -15,29 +18,18 @@ class UsersController extends Controller
      * @param \PlugRoute\Http\Request $request
      * @throws \App\Resources\Exceptions\MissingLayoutException
      */
-    public function __construct(\PlugRoute\Http\Request $request)
+    public function __construct(Request $request, Response $response)
     {
-        parent::__construct($request);
+        parent::__construct($request, $response);
     }
 
     /**
      * @throws \App\Resources\Exceptions\MissingViewException
      */
     public function index() {
-        $users = [];
-
-        $u = new \stdClass();
-        $u->id = 1;
-        $u->name = "Nome 1";
-        $users[] = $u;
-
-        $u = new \stdClass();
-        $u->id = 2;
-        $u->name = "Nome 2";
-        $users[] = $u;
 
         $table = new UsersTable();
-
+        $users = $table->getAll();
 
         $this->View->set('users', $users);
         $this->View->setView('Users.index');
@@ -45,8 +37,35 @@ class UsersController extends Controller
     }
 
     public function view (){
+        $this->View->render();
+    }
+
+    /**
+     * @throws \App\Resources\Exceptions\MissingViewException
+     */
+    public function add(){
+
+        if($this->getRequest()->getMethod() == "POST"){
+            $data = $this->getRequest()->getBodyPostRequest();
+            $user = new User();
+
+            $user->username = $data['username'];
+            $user->setPassword($data['password']);
+            $user->email = $data['email'];
 
 
+            $table = new UsersTable();
+            $rt = $table->query
+                ->table('users')
+                ->fields(['username', 'password', 'email'])
+                ->insert([$user->username, $user->password, $user->email]);
+
+            if(!is_null($rt)) {
+                $this->getRequest()->redirectToRoute('users');
+            }
+        }
+
+        $this->View->setView('Users.add');
         $this->View->render();
     }
 
@@ -56,9 +75,20 @@ class UsersController extends Controller
      */
     public function login(){
         if($this->getRequest()->getMethod() == "POST"){
-            $data = $this->getRequest()->getBodyFormData();
+            $data = $this->getRequest()->getBodyPostRequest();
+
+            $username = $data['username'];
+            $password = $data['password'];
+
+            $table = new UsersTable();
+            $user = $table->findByUsername($username);
+
+            if(!is_null($user) && $user->verifyPassword($password)) {
+                echo "<script>alert('Logado!');</script>";
+            } else {
+                echo "<script>alert('Não Logado!');</script>";
+            }
         }
         $this->View->setLayout('login')->setView('Users.login')->render();
     }
-
 }

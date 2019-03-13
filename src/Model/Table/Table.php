@@ -1,16 +1,17 @@
 <?php
 namespace App\Model\Table;
 
-use App\Resources\Database\Database;
+use App\Resources\Database\QueryBuilder;
 
 class Table
 {
-    protected $con;
-    private $_dbTable;
+    /**
+     * @var QueryBuilder
+     */
+    public $query;
 
     public function __construct(string $dbTable)
     {
-        $this->con = Database::open();
-        $this->_dbTable = $dbTable;
+        $this->query = new QueryBuilder();
     }
 }
