@@ -62,11 +62,11 @@ class QueryBuilder
         //recupera o nome da table
         //ou deixa uma marcação para mostrar que falteou informar esse campo
 
-        $table = isset($htis->clausules['table']) ? $this->clausules['table'] : '<table>';
+        $table = isset($this->clausules['table']) ? $this->clausules['table'] : '<table>';
 
         //recupera o array dos campos
         //ou deixa uma marcação para mostrar que faltou informar esse campo
-        $_fields = isset($htis->clausules['fields']) ? $this->clausules['fields'] : '<fields>';
+        $_fields = isset($this->clausules['fields']) ? $this->clausules['fields'] : '<fields>';
         $fields = implode(', ', $_fields);
 
         //cria uma lista de róyolos para usar "prepared statement"
@@ -258,6 +258,7 @@ class QueryBuilder
     private function executeInsert($sql, $values)
     {
         $statement = $this->statement($sql);
+
         if($statement && $statement->execute(array_values($values))){
             return $this->conn->lastInsertId();
         }

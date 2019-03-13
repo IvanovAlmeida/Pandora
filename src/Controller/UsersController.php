@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Model\Table\UsersTable;
 use App\Model\Entity\User;
+use PlugRoute\Http\Response;
+use \PlugRoute\Http\Request;
 
 /**
  * Class UsersController
@@ -16,9 +18,9 @@ class UsersController extends Controller
      * @param \PlugRoute\Http\Request $request
      * @throws \App\Resources\Exceptions\MissingLayoutException
      */
-    public function __construct(\PlugRoute\Http\Request $request)
+    public function __construct(Request $request, Response $response)
     {
-        parent::__construct($request);
+        parent::__construct($request, $response);
     }
 
     /**
@@ -35,8 +37,35 @@ class UsersController extends Controller
     }
 
     public function view (){
+        $this->View->render();
+    }
+
+    /**
+     * @throws \App\Resources\Exceptions\MissingViewException
+     */
+    public function add(){
+
+        if($this->getRequest()->getMethod() == "POST"){
+            $data = $this->getRequest()->getBodyPostRequest();
+            $user = new User();
+
+            $user->username = $data['username'];
+            $user->setPassword($data['password']);
+            $user->email = $data['email'];
 
 
+            $table = new UsersTable();
+            $rt = $table->query
+                ->table('users')
+                ->fields(['username', 'password', 'email'])
+                ->insert([$user->username, $user->password, $user->email]);
+
+            if(!is_null($rt)) {
+                $this->getRequest()->redirectToRoute('users');
+            }
+        }
+
+        $this->View->setView('Users.add');
         $this->View->render();
     }
 

@@ -8,9 +8,9 @@ class ReservesController extends Controller
      * @param \PlugRoute\Http\Request $request
      * @throws \App\Resources\Exceptions\MissingLayoutException
      */
-    public function __construct(\PlugRoute\Http\Request $request)
+    public function __construct(\PlugRoute\Http\Request $request, \PlugRoute\Http\Response $response)
     {
-        parent::__construct($request);
+        parent::__construct($request, $response);
     }
 
     /**

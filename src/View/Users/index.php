@@ -1,10 +1,13 @@
 <?php
 /**
  * @var \App\Resources\View $this;
- * @var \stdClass[] $users
+ * @var \App\Model\Entity\User[] $users
  */
 ?>
 <div class="col-sm-12">
+    <a href="/users/cadastrar" class="btn btn-success btn-sm float-right">
+        <i class="fa fa-plus"></i>
+    </a>
     <h3>Usuários</h3>
     <hr>
 </div>

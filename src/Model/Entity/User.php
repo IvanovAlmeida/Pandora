@@ -11,6 +11,7 @@ class User extends Entity
     public $id;
     public $username;
     public $password;
+    public $email;
     public $role_id;
     public $status;
     public $created_at;
