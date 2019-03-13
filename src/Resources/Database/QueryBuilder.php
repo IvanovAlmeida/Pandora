@@ -1,6 +1,7 @@
 <?php
 namespace App\Resources\Database;
 
+use App\Model\Entity\User;
 use \PDO;
 use \PDOStatement;
 use \Exception;
@@ -8,22 +9,22 @@ use \Exception;
 /**
  * Class QueryBuilder
  * @package App\Resources\Database
- * @method QueryBuilder table (string $table)
- * @method QueryBuilder join (string $join)
- * @method QueryBuilder fields (array $fields)
- * @method QueryBuilder where (array $where)
- * @method QueryBuilder order (array $order)
- * @method QueryBuilder group (array $group)
- * @method QueryBuilder having (array $having)
- * @method QueryBuilder limit (array $join)
-
+ * @method QueryBuilder table   (string $table)
+ * @method QueryBuilder join    (string $join)
+ * @method QueryBuilder fields  (array $fields)
+ * @method QueryBuilder where   (array $where)
+ * @method QueryBuilder order   (array $order)
+ * @method QueryBuilder group   (array $group)
+ * @method QueryBuilder having  (array $having)
+ * @method QueryBuilder limit   (array $join)
+ * @method QueryBuilder class   (string $class)
  */
 class QueryBuilder
 {
     /**
      * @var array
      */
-    private $clausules = [];
+    private $clausules = ['class' => 'stdClass'];
     /**
      * @var \PDO
      */
@@ -136,7 +137,7 @@ class QueryBuilder
             ],
             'limit' => [
                 'instruction' => 'LIMIT',
-                'separator' => ',',
+                'separator' => ', ',
             ],
         ];
 
@@ -154,7 +155,7 @@ class QueryBuilder
         //junta o comando
         $sql = implode(' ', $command);;
 
-        return $this->executeSelect($sql, $values);
+        return $this->executeSelect($sql, $values, $this->clausules['class']);
     }
     /**
      * @param $values
@@ -238,7 +239,7 @@ class QueryBuilder
         // DELETE FROM {table} <JOIN> <USING> <WHERE>
         // junta o comando
         $sql = implode(' ', $command);
-        return $this->executeUpdate($sql, $filters);
+        return $this->executeDelete($sql, $filters);
     }
 
     /**
@@ -266,13 +267,14 @@ class QueryBuilder
     /**
      * @param $sql
      * @param $values
+     * @param string $class
      * @return array|null
      */
-    private function executeSelect($sql, $values)
+    private function executeSelect($sql, $values, $class = 'stdClass')
     {
         $statement = $this->statement($sql);
         if($statement && $statement->execute(array_values($values))){
-            return $statement->fetchAll(PDO::FETCH_OBJ);
+            return $statement->fetchAll(PDO::FETCH_CLASS, $class);
         }
         return null;
     }

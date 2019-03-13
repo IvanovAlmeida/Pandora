@@ -52,9 +52,9 @@ class UsersController extends Controller
             $password = $data['password'];
 
             $table = new UsersTable();
-            $user = $table->query->table('users')->where(['username = ?'])->select([$username]);
+            $user = $table->findByUsername($username);
 
-            if(count($user) > 0 && password_verify($password, $user[0]->password)) {
+            if(!is_null($user) && $user->verifyPassword($password)) {
                 echo "<script>alert('Logado!');</script>";
             } else {
                 echo "<script>alert('Não Logado!');</script>";
@@ -62,5 +62,4 @@ class UsersController extends Controller
         }
         $this->View->setLayout('login')->setView('Users.login')->render();
     }
-
 }
