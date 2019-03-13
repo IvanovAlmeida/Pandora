@@ -1,15 +1,33 @@
 <?php
 
 namespace App\Controller;
-use App\Resources\Exceptions\MissingTableModelException;
-use App\Resources\View;
+
+use \App\Resources\View;
+use \App\Resources\Auth;
+
+use \PlugRoute\Http\Response;
+use \PlugRoute\Http\Request;
+
 
 abstract class Controller
 {
+    /**
+     * @var View
+     */
     protected $View;
     private $Model;
+    /**
+     * @var Request
+     */
     private $Request;
+    /**
+     * @var Response
+     */
     private $Response;
+    /**
+     * @var Auth
+     */
+    private $Auth;
 
     /**
      * Controller constructor.
@@ -17,11 +35,13 @@ abstract class Controller
      * @param \PlugRoute\Http\Response $response
      * @throws \App\Resources\Exceptions\MissingLayoutException
      */
-    public function __construct(\PlugRoute\Http\Request $request, \PlugRoute\Http\Response $response)
+    public function __construct(Request $request, Response $response)
     {
         $this->Request = $request;
         $this->Response = $response;
+
         $this->View = new View();
+        $this->Auth = new Auth();
     }
 
     /**
@@ -36,6 +56,13 @@ abstract class Controller
      */
     public function getResponse(){
         return $this->Response;
+    }
+
+    /**
+     * @return \App\Resources\Auth
+     */
+    public function getAuth(){
+        return $this->Auth;
     }
 
     protected function setModel(string $model){

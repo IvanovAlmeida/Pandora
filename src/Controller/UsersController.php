@@ -84,11 +84,18 @@ class UsersController extends Controller
             $user = $table->findByUsername($username);
 
             if(!is_null($user) && $user->verifyPassword($password)) {
-                echo "<script>alert('Logado!');</script>";
+
+                $this->getAuth()->setUser($user);
+                $this->getRequest()->redirectToRoute('reserves.index');
+
             } else {
-                echo "<script>alert('Não Logado!');</script>";
+                echo "<script>alert('Usuário ou Senha incorretos!');</script>";
             }
         }
         $this->View->setLayout('login')->setView('Users.login')->render();
+    }
+    public function logout(){
+        $this->getAuth()->logout();
+        $this->getRequest()->redirect('/login');
     }
 }
