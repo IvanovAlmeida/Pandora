@@ -3,8 +3,14 @@ namespace App\Resources\Database;
 
 class Database
 {
+    /**
+     * @var \PDO
+     */
     protected static $db;
 
+    /**
+     * Database constructor.
+     */
     private function __construct()
     {
         $dbConfig = include_once __DIR__ . '/../AppConfig.php';
@@ -42,6 +48,9 @@ class Database
         }
     }
 
+    /**
+     * @return \PDO
+     */
     public static function open(){
         if(!self::$db){
             new Database();

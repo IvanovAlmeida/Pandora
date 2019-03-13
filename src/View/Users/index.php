@@ -15,13 +15,15 @@
             <tr>
                 <th>#</th>
                 <th>Nome</th>
+                <th>E-Mail</th>
             </tr>
             </tbody>
             <tbody>
             <?php foreach($users as $user): ?>
                 <tr>
                     <td><?= $user->id ?></td>
-                    <td><?= $user->name ?></td>
+                    <td><?= $user->username ?></td>
+                    <td><?= $user->email ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

@@ -24,20 +24,9 @@ class UsersController extends Controller
      * @throws \App\Resources\Exceptions\MissingViewException
      */
     public function index() {
-        $users = [];
-
-        $u = new \stdClass();
-        $u->id = 1;
-        $u->name = "Nome 1";
-        $users[] = $u;
-
-        $u = new \stdClass();
-        $u->id = 2;
-        $u->name = "Nome 2";
-        $users[] = $u;
 
         $table = new UsersTable();
-
+        $users = $table->getAll();
 
         $this->View->set('users', $users);
         $this->View->setView('Users.index');

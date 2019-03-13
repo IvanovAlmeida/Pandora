@@ -12,7 +12,12 @@ class UsersTable extends Table
         parent::__construct('Users');
     }
 
+    /**
+     * @return array
+     */
     public function getAll(){
-
+        return $this->query
+                        ->table('users')
+                        ->select();
     }
 }
