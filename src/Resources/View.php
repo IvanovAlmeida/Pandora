@@ -55,7 +55,7 @@ class View
     }
 
     /**
-     * @return $this|false|string
+     * @return $this
      */
     public function displayMessages(){
         $messages = Session::get('messages');
@@ -69,6 +69,7 @@ class View
                 }
             }
         }
+        return $this;
     }
 
     /**
