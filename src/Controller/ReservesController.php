@@ -17,8 +17,6 @@ class ReservesController extends Controller
      * @throws \App\Resources\Exceptions\MissingViewException
      */
     public function index(){
-        $this->View->set("teste", 'alow');
-
         $this->View->setView('Reserves.index');
         $this->View->render();
     }

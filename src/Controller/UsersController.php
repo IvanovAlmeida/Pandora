@@ -53,7 +53,6 @@ class UsersController extends Controller
             $user->setPassword($data['password']);
             $user->email = $data['email'];
 
-
             $table = new UsersTable();
             $rt = $table->query
                 ->table('users')
@@ -61,7 +60,10 @@ class UsersController extends Controller
                 ->insert([$user->username, $user->password, $user->email]);
 
             if(!is_null($rt)) {
+                $this->View->setSuccessMessage('Usuário cadastrado com sucesso!');
                 $this->getRequest()->redirectToRoute('users');
+            } else {
+                $this->View->setErrorMessage('Erro ao cadastrar usuário!');
             }
         }
 
@@ -84,11 +86,17 @@ class UsersController extends Controller
             $user = $table->findByUsername($username);
 
             if(!is_null($user) && $user->verifyPassword($password)) {
-                echo "<script>alert('Logado!');</script>";
+                $this->getAuth()->setUser($user);
+                $this->View->setSuccessMessage('Login realizado com sucesso!');
+                $this->getRequest()->redirect('/');
             } else {
-                echo "<script>alert('Não Logado!');</script>";
+                $this->View->setErrorMessage('Usuário ou Senha incorretos!');
             }
         }
         $this->View->setLayout('login')->setView('Users.login')->render();
+    }
+    public function logout(){
+        $this->getAuth()->logout();
+        $this->getRequest()->redirect('/login');
     }
 }

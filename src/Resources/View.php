@@ -9,11 +9,34 @@ use App\Resources\Exceptions\MissingViewException;
  */
 class View
 {
+    /**
+     * @var $_layout
+     */
     private $_layout;
+    /**
+     * @var $_pathLayout
+     */
     private $_pathLayout;
+    /**
+     * @var string $_view
+     */
     private $_view;
+    /**
+     * @var string $_pathView
+     */
     private $_pathView;
-    private $_viewData;
+    /**
+     * @var array $_viewData
+     */
+    private $_viewData = [];
+    /**
+     * @var array $_messages
+     */
+    private $_messages = [];
+    /**
+     * @var string $_title
+     */
+    private $_title = "";
 
     /**
      * View constructor.
@@ -21,7 +44,6 @@ class View
      */
     public function __construct(){
         $this->setLayout('default');
-        $this->_viewData = [];
     }
 
     /**
@@ -55,6 +77,24 @@ class View
     }
 
     /**
+     * @return $this
+     */
+    public function displayMessages(){
+        $messages = Session::get('messages');
+        Session::unset('messages');
+        if(!is_null($messages)){
+
+            foreach ($messages as $message) {
+                $dir = __DIR__ . "/../View/Errors/Messages/{$message['type']}.php";
+                if(file_exists($dir)){
+                    include ($dir);
+                }
+            }
+        }
+        return $this;
+    }
+
+    /**
      * @param string $layout
      * @return $this
      * @throws MissingLayoutException
@@ -68,6 +108,7 @@ class View
         $this->_pathLayout  = $dir;
         return $this;
     }
+
     /**
      * @return string
      */
@@ -91,11 +132,57 @@ class View
         $this->_pathView    = $dir;
         return $this;
     }
+
     /**
      * @return mixed
      */
     public function getView() : string {
         return $this->_view;
+    }
+
+    /**
+     * @param string $titulo
+     */
+    public function setTitle(string $titulo){
+        $this->_title = $titulo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle() : string {
+        return $this->_title;
+    }
+
+    /**
+     * @param string $message
+     * @return $this
+     */
+    public function setErrorMessage(string $message){
+        $this->_messages[] = [ 'type' => 'error', 'message' => $message ];
+        Session::set('messages', $this->_messages);
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @return $this
+     */
+    public function setSuccessMessage(string $message){
+        $this->_messages[] = [ 'type' => 'success', 'message' => $message ];
+        Session::set('messages', $this->_messages);
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @param string $type
+     * @return $this
+     */
+    public function setMessage(string $message, string $type = 'default'){
+        $this->_messages[] = [ 'type' => $type, 'message' => $message ];
+        Session::set('messages', $this->_messages);
+        return $this;
     }
 
     /**
