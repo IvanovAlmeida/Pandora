@@ -2,5 +2,13 @@
 /**
  * @var array $message
  */
-echo $message['type'];
-echo $message['message'];
+?>
+<?php if(isset($message) && !empty($message)): ?>
+
+    <script>
+        $.notify({
+            message: <?php echo "'" . $message['message'] . "'"; ?>
+        });
+    </script>
+
+<?php endif; ?>

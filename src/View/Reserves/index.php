@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * @var \App\Resources\View $this
  */
 ?>
 <div class="col-sm-12">

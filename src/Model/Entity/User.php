@@ -9,6 +9,7 @@ namespace App\Model\Entity;
 class User extends Entity
 {
     public $id;
+    public $name;
     public $username;
     public $password;
     public $email;

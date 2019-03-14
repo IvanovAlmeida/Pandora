@@ -9,12 +9,34 @@ use App\Resources\Exceptions\MissingViewException;
  */
 class View
 {
+    /**
+     * @var $_layout
+     */
     private $_layout;
+    /**
+     * @var $_pathLayout
+     */
     private $_pathLayout;
+    /**
+     * @var string $_view
+     */
     private $_view;
+    /**
+     * @var string $_pathView
+     */
     private $_pathView;
+    /**
+     * @var array $_viewData
+     */
     private $_viewData = [];
+    /**
+     * @var array $_messages
+     */
     private $_messages = [];
+    /**
+     * @var string $_title
+     */
+    private $_title = "";
 
     /**
      * View constructor.
@@ -116,6 +138,20 @@ class View
      */
     public function getView() : string {
         return $this->_view;
+    }
+
+    /**
+     * @param string $titulo
+     */
+    public function setTitle(string $titulo){
+        $this->_title = $titulo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle() : string {
+        return $this->_title;
     }
 
     /**
