@@ -1,6 +1,7 @@
 <?php
 namespace App\Middlewares;
 
+use App\Resources\Session;
 use PlugRoute\Http\Request;
 use PlugRoute\Middleware\PlugRouteMiddleware;
 use App\Resources\Auth;
@@ -18,9 +19,11 @@ class AuthMiddleware implements PlugRouteMiddleware
     public function handle(Request $request): Request
     {
         $auth = new Auth();
-        if(!$auth->isAuthenticated())
+        if(!$auth->isAuthenticated()){
+            $messages[] = [ 'type' => 'error', 'message' => 'Acesso não autorizado!' ];
+            Session::set('messages', $messages);
             $request->redirect('/login');
-
+        }
         return $request;
     }
 }

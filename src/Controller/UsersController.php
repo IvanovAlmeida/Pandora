@@ -86,10 +86,11 @@ class UsersController extends Controller
             if(!is_null($user) && $user->verifyPassword($password)) {
 
                 $this->getAuth()->setUser($user);
+                $this->View->setSuccessMessage('Login realizado com sucesso!');
                 $this->getRequest()->redirectToRoute('reserves.index');
 
             } else {
-                echo "<script>alert('Usuário ou Senha incorretos!');</script>";
+                $this->View->setErrorMessage('Usuário ou Senha incorretos!');
             }
         }
         $this->View->setLayout('login')->setView('Users.login')->render();

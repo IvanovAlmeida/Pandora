@@ -13,7 +13,8 @@ class View
     private $_pathLayout;
     private $_view;
     private $_pathView;
-    private $_viewData;
+    private $_viewData = [];
+    private $_messages = [];
 
     /**
      * View constructor.
@@ -21,7 +22,6 @@ class View
      */
     public function __construct(){
         $this->setLayout('default');
-        $this->_viewData = [];
     }
 
     /**
@@ -55,6 +55,23 @@ class View
     }
 
     /**
+     * @return $this|false|string
+     */
+    public function displayMessages(){
+        $messages = Session::get('messages');
+        Session::unset('messages');
+        if(!is_null($messages)){
+
+            foreach ($messages as $message) {
+                $dir = __DIR__ . "/../View/Errors/Messages/{$message['type']}.php";
+                if(file_exists($dir)){
+                    include ($dir);
+                }
+            }
+        }
+    }
+
+    /**
      * @param string $layout
      * @return $this
      * @throws MissingLayoutException
@@ -68,6 +85,7 @@ class View
         $this->_pathLayout  = $dir;
         return $this;
     }
+
     /**
      * @return string
      */
@@ -91,11 +109,43 @@ class View
         $this->_pathView    = $dir;
         return $this;
     }
+
     /**
      * @return mixed
      */
     public function getView() : string {
         return $this->_view;
+    }
+
+    /**
+     * @param string $message
+     * @return $this
+     */
+    public function setErrorMessage(string $message){
+        $this->_messages[] = [ 'type' => 'error', 'message' => $message ];
+        Session::set('messages', $this->_messages);
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @return $this
+     */
+    public function setSuccessMessage(string $message){
+        $this->_messages[] = [ 'type' => 'success', 'message' => $message ];
+        Session::set('messages', $this->_messages);
+        return $this;
+    }
+
+    /**
+     * @param string $message
+     * @param string $type
+     * @return $this
+     */
+    public function setMessage(string $message, string $type = 'default'){
+        $this->_messages[] = [ 'type' => $type, 'message' => $message ];
+        Session::set('messages', $this->_messages);
+        return $this;
     }
 
     /**

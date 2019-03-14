@@ -38,6 +38,11 @@
         </style>
         <!-- Custom styles for this template -->
         <?= $this->css('dashboard.css') ?>
+
+        <?= $this->js('jquery-3.3.1.min.js') ?>
+        <?= $this->js('bootstrap.min.js') ?>
+        <?= $this->js('bootstrap-notify.min.js') ?>
+        <?= $this->js('dashboard.js') ?>
     </head>
     <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -95,6 +100,9 @@
             </nav>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-4">
                 <div class="row">
+                    <?php $this->displayMessages(); ?>
+                </div>
+                <div class="row">
                     <?php $this->content(); ?>
                 </div>
             </main>
@@ -118,8 +126,6 @@
         </div>
     </div>
 
-    <?= $this->js('jquery-3.3.1.min.js') ?>
-    <?= $this->js('bootstrap.min.js') ?>
-    <?= $this->js('dashboard.js') ?>
+
     </body>
 </html>
