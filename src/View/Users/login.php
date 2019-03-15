@@ -3,7 +3,7 @@
  * @var \App\Resources\View $this
  */
 ?>
-<h5 class="card-title text-center mt-4">Iniciar sessão</h5>
+<h5 class="card-title text-center mt-4 microsoftYaHeiLight-bold">Iniciar sessão</h5>
 <hr>
 <form method="post" class="mt-4">
     <div class="form-group">
