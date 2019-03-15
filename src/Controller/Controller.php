@@ -66,7 +66,7 @@ abstract class Controller
     }
 
     /**
-     *
+     *  Seta o model se existir
      */
     private function setModel(){
         $nameModel = substr(get_class($this), 15, strlen(get_class($this)));
