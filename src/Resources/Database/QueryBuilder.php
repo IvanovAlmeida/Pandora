@@ -54,8 +54,8 @@ class QueryBuilder
     }
 
     /**
-     * @param array $values
-     * @return string
+     * @param $values
+     * @return int|null
      */
     public function insert($values)
     {
@@ -253,7 +253,7 @@ class QueryBuilder
     /**
      * @param $sql
      * @param $values
-     * @return string|null
+     * @return int|null
      */
     private function executeInsert($sql, $values)
     {

@@ -18,6 +18,7 @@ use \App\Resources\Session;
 
         <!-- Bootstrap core CSS -->
         <?= $this->css('bootstrap.min.css') ?>
+        <?= $this->css('pandora.css') ?>
 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
@@ -43,7 +44,9 @@ use \App\Resources\Session;
         <?= $this->js('jquery-3.3.1.min.js') ?>
         <?= $this->js('bootstrap.min.js') ?>
         <?= $this->js('bootstrap-notify.min.js') ?>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <?= $this->js('dashboard.js') ?>
+        <?= $this->js('pandora.js') ?>
     </head>
     <body>
     <nav class="navbar navbar-dark fixed-top bg-primary flex-md-nowrap p-0 shadow">
@@ -67,32 +70,31 @@ use \App\Resources\Session;
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/reservas">
                                 <i class="fas fa-calendar-alt"></i>
                                 Reservas
                             </a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/clientes">
                                 <i class="fas fa-handshake"></i>
                                 Clientes
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/espacos">
                                 <i class="fas fa-map-marker-alt"></i>
                                 Espaços
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/itens">
                                 <i class="fas fa-sitemap"></i>
                                 Itens
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/servicos">
                                 <i class="fas fa-concierge-bell"></i>
                                 Serviços
                             </a>

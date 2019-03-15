@@ -18,11 +18,9 @@
 
     <!-- Bootstrap core CSS -->
     <?= $this->css('bootstrap.min.css') ?>
+    <?= $this->css('pandora.css') ?>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-
-    <!-- Custom styles for this template -->
 
 
     <?= $this->js('jquery-3.3.1.min.js') ?>
@@ -30,7 +28,7 @@
     <?= $this->js('bootstrap-notify.min.js') ?>
 
 </head>
-<body>
+<body style="background-color: #EEEEEE;">
 
     <div class="container">
         <div class="row justify-content-center">
@@ -42,10 +40,10 @@
             <div class="col-sm-10">
                 <!--início do card onde guardara o conteúdo de login-->
                 <div class="card border-primary " style="margin-top: 90px;">
-                    <div class="card-header text-center">
+                    <div class="card-header text-center microsoftYaHeiLight">
                         Pandora - Gerenciamente de Buffet
                     </div>
-                    <div class="card-body text-primary">
+                    <div class="card-body text-primary shadow-lg">
                         <div class="row">
 
                             <div class="col-sm-6 text-center">
