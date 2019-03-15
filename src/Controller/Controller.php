@@ -15,7 +15,6 @@ abstract class Controller
      * @var View
      */
     protected $View;
-    private $Model;
     /**
      * @var Request
      */
@@ -39,6 +38,7 @@ abstract class Controller
     {
         $this->Request = $request;
         $this->Response = $response;
+        $this->setModel();
 
         $this->View = new View();
         $this->Auth = new Auth();
@@ -65,7 +65,17 @@ abstract class Controller
         return $this->Auth;
     }
 
-    protected function setModel(string $model){
+    /**
+     *
+     */
+    private function setModel(){
+        $nameModel = substr(get_class($this), 15, strlen(get_class($this)));
+        $nameModel = substr($nameModel, 0, (strlen($nameModel) - 10));
+        $model = '\App\Model\Table\\' . $nameModel  . "Table";
+
+        if(class_exists($model)){
+            $this->$nameModel = new $model;
+        }
     }
 }
 

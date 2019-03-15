@@ -2,19 +2,21 @@
 namespace App\Controller;
 
 use App\Model\Entity\Item;
-use App\Model\Table\ItemTable;
+use App\Model\Table\ItemsTable;
 use PlugRoute\Http\Request;
 use PlugRoute\Http\Response;
 
 /**
  * Class ItemsController
  * @package App\Controller
+ * @property ItemsTable $Items
  */
 class ItemsController extends Controller
 {
     /**
      * ItemsController constructor.
      * @param Request $request
+     * @param Response $response
      * @throws \App\Resources\Exceptions\MissingLayoutException
      */
     public function __construct(Request $request, Response $response)
@@ -27,8 +29,7 @@ class ItemsController extends Controller
      */
     public function index(){
 
-        $table = new ItemTable();
-        $items = $table->getAll();
+        $items = $this->Items->getAll();
 
         $this->View->set("items", $items)
             ->setView('Items.index')
@@ -59,8 +60,7 @@ class ItemsController extends Controller
             $item->price    = $data['price'];
             $item->quantity = $data['quantity'];
 
-            $table = new ItemTable();
-            $rt = $table->save($item);
+            $rt = $this->Items->save($item);
             if(!is_null($rt)){
                 $this->View->setSuccessMessage('Item cadastrado com sucesso!');
                 $this->getRequest()->redirectToRoute('items');
@@ -75,8 +75,7 @@ class ItemsController extends Controller
         if($this->getRequest()->getMethod() == "DELETE"){
             $id = $this->getRequest()->getRequisitionBody("DELETE")['id'];
 
-            $table = new ItemTable();
-            $rt = $table->delete($id);
+            $rt = $this->Items->delete($id);
 
             $msg = [ 'msg' => 'erro' ];
             if(!is_null($rt))

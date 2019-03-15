@@ -3,7 +3,7 @@ namespace App\Model\Table;
 
 use App\Model\Entity\Item;
 
-class ItemTable extends Table
+class ItemsTable extends Table
 {
     public function __construct()
     {
