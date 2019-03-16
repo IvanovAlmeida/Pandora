@@ -3,6 +3,7 @@
  * @var \App\Resources\View $this
  * @var \App\Model\Entity\Item $item
  */
+setlocale(LC_MONETARY, 'pt_br');
 ?>
 <div class="col-sm-12">
     <a href="/itens" class="btn btn-success btn-sm float-right">
@@ -21,11 +22,11 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="price">Preço</label>
-                <input type="text" class="form-control" name="price" id="price" placeholder="Preço" value="<?= $item->price ?>">
+                <input type="text" class="form-control" name="price" id="price" placeholder="Preço" value="<?= number_format($item->price,2,',','.') ?>">
             </div>
             <div class="form-group col-md-4">
                 <label for="quantity">Quantidade</label>
-                <input type="quantity" class="form-control" name="quantity" id="quantity" value="<?= $item->quantity ?>" placeholder="Descrição">
+                <input type="number" class="form-control" name="quantity" min="1" id="quantity" value="<?= $item->quantity ?>" placeholder="Descrição">
             </div>
         </div>
         <div class="form-row">
@@ -36,4 +37,7 @@
     </form>
 
 </div>
+<script>
+    $('#price').maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+</script>
 

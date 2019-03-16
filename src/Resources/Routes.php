@@ -7,7 +7,7 @@ $route = new PlugRoute();
 
 $route->setRouteError('\App\Controller\ExceptionsController@error404');
 
-$route->get('/', '\App\Controller\ReservesController@index')
+$route->get('/', '\App\Controller\ReservesController@home')
         ->middleware(AuthMiddleware::class)
         ->name('home');
 
@@ -18,13 +18,13 @@ $route->group(['prefix' => '/reservas', 'middleware' => [AuthMiddleware::class]]
     $route->get('', '\App\Controller\ReservesController@index')->name('reserves');
     $route->get('/ver/{id:\d+}', '\App\Controller\ReservesController@view')->name('reserves.view');
 
-    $route->get('/cadastrar', '\App\Controller\UsersController@add');
-    $route->post('/cadastrar', '\App\Controller\UsersController@add');
+    $route->get('/cadastrar', '\App\Controller\ReservesController@add');
+    $route->post('/cadastrar', '\App\Controller\ReservesController@add');
 
-    $route->get('/editar/{id:\d+}', '\App\Controller\UsersController@edit');
-    $route->post('/editar/{id:\d+}', '\App\Controller\UsersController@edit');
+    $route->get('/editar/{id:\d+}', '\App\Controller\ReservesController@edit');
+    $route->post('/editar/{id:\d+}', '\App\Controller\ReservesController@edit');
 
-    $route->match(['DELETE'],'/apagar/{id:\d+}', '\App\Controller\UsersController@delete');
+    $route->match(['DELETE'],'/apagar/{id:\d+}', '\App\Controller\ReservesController@delete');
 });
 
 $route->group(['prefix' => '/clientes', 'middleware' => [AuthMiddleware::class]], function(PlugRoute $route){

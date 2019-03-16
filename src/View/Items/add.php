@@ -24,7 +24,7 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="quantity">Quantidade</label>
-                <input type="quantity" class="form-control" name="quantity" id="quantity" placeholder="Quantidade">
+                <input type="number" class="form-control" min="1" name="quantity" id="quantity" placeholder="Quantidade">
             </div>
         </div>
         <div class="form-row">
@@ -35,3 +35,6 @@
     </form>
 
 </div>
+<script>
+    $('#price').maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+</script>

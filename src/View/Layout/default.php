@@ -42,11 +42,14 @@ use \App\Resources\Session;
         <?= $this->css('dashboard.css') ?>
 
         <?= $this->js('jquery-3.3.1.min.js') ?>
+        <?= $this->js('jquery.mask.js') ?>
+        <?= $this->js('jquery.maskMoney.min.js') ?>
         <?= $this->js('bootstrap.min.js') ?>
         <?= $this->js('bootstrap-notify.min.js') ?>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <?= $this->js('dashboard.js') ?>
         <?= $this->js('pandora.js') ?>
+
     </head>
     <body>
     <nav class="navbar navbar-dark fixed-top bg-primary flex-md-nowrap p-0 shadow">

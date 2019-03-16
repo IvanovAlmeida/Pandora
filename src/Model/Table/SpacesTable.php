@@ -45,12 +45,13 @@ class SpacesTable extends Table
             ->insert([$space->name, $space->contact_id]);
     }
 
+    /**
+     * @param int $id
+     * @return int|null
+     */
     public function delete(int $id){
-        return $this->query
-                    ->table('spaces, contacts')
-                    ->where(['spaces.id = ?'])
-                    ->join('inner join contacts on contacts.id = spaces.contact_id')
-                    ->delete([$id]);
+        $sql  = "DELETE s, c FROM spaces s INNER JOIN contacts AS c ON c.id = s.contact_id WHERE s.id = ?";
+        return $this->query->execute($sql, [$id]);
     }
 
     public function getById(int $id){

@@ -79,6 +79,16 @@ class ClientsController extends Controller
     }
 
     public function delete(){
+        if($this->getRequest()->getMethod() == "DELETE"){
+            $id = $this->getRequest()->getRequisitionBody("DELETE")['id'];
 
+            $rt = $this->Clients->delete($id);
+
+            $msg = [ 'msg' => 'erro' ];
+            if(!is_null($rt))
+                $msg = [ 'msg' => 'sucesso' ];
+
+            echo $this->getResponse()->json($msg);
+        }
     }
 }

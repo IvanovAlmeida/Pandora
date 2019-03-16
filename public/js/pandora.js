@@ -72,6 +72,43 @@ $( document ).ready(function() {
             });
     });
 
+    $('body').on('click', 'table.tableClients TBODY TR TD .btnApagar', function () {
+        console.log(this);
+        let idCliente = $(this).attr('data-id');
+        swal({
+            title: "Você tem certeza?",
+            text: "Se você apagar este cliente não irá pode recupera-lo!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+
+                    $.ajax({
+                        url: '/clientes/apagar/' + idCliente,
+                        type: 'DELETE',
+                        data: { id : idCliente }
+                    }).done(function (data) {
+                        if(data.msg === "sucesso"){
+                            swal("Cliente  apagado com sucesso!", {
+                                icon: "success",
+                            });
+
+                            setTimeout(function () {
+                                location.reload();
+                            }, 2000);
+                        } else {
+                            swal("Ops! Não foi possivel apagar o cliente!", {
+                                icon: "danger",
+                            });
+                        }
+                    });
+
+                }
+            });
+    });
+
     $('body').on('click', 'table.tableEspacos TBODY TR TD .btnApagar', function () {
         console.log(this);
         let idService = $(this).attr('data-id');

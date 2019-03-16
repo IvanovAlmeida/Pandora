@@ -102,6 +102,14 @@ class ClientsTable extends Table
                             );
     }
 
+    /**
+     * @param int $id
+     * @return int|null
+     */
+    public function delete(int $id){
+        $sql  = "DELETE c1, c FROM clients c1 INNER JOIN contacts AS c ON c.id = c1.contact_id WHERE c1.id = ?";
+        return $this->query->execute($sql, [$id]);
+    }
 
     public function patchEntity(array $data, Entity $entity){
         foreach ($data as $field => $value) {
