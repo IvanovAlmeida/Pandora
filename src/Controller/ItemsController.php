@@ -57,7 +57,7 @@ class ItemsController extends Controller
 
             $item           = new Item();
             $item->name     = $data['name'];
-            $item->price    = $data['price'];
+            $item->price    = str_replace('R$', '',$data['price']);
             $item->quantity = $data['quantity'];
 
             $rt = $this->Items->save($item);
@@ -98,6 +98,9 @@ class ItemsController extends Controller
 
             $data = $this->getRequest()->getBodyPostRequest();
             $item = $this->Items->patchEntity($data, $item);
+
+            $item->price = str_replace('R$', '', $item->price);
+            $item->price = floatval(str_replace(',', '.', $item->price));
 
             $rt = $this->Items->update($item);
 

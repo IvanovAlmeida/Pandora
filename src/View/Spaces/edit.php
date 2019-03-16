@@ -67,4 +67,7 @@
     </form>
 
 </div>
-
+<script>
+    $('#telephone').mask('(99) 9999-9999');
+    $('#zipCode').mask('99.999-999');
+</script>

@@ -12,7 +12,7 @@
     <hr>
 </div>
 <div class="col-sm-12">
-    <table class="table tableItens">
+    <table class="table tableClients">
         <tbody>
         <tr>
             <th>#</th>

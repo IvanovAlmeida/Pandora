@@ -19,7 +19,7 @@
             <th>#</th>
             <th>Nome</th>
             <th>Preço</th>
-            <th>Descriçaõ</th>
+            <th>Descrição</th>
             <th class="text-center">
                 Ações
             </th>

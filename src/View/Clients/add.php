@@ -70,5 +70,10 @@
             </div>
         </div>
     </form>
-
 </div>
+<script>
+    $('#cpf').mask('999.999.999-99');
+    $('#cnpj').mask('99.999.999/9999-99');
+    $('#telephone').mask('(99) 9999-9999');
+    $('#zipCode').mask('99.999-999');
+</script>

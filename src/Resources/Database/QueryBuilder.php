@@ -239,6 +239,7 @@ class QueryBuilder
         // DELETE FROM {table} <JOIN> <USING> <WHERE>
         // junta o comando
         $sql = implode(' ', $command);
+
         return $this->executeDelete($sql, $filters);
     }
 
@@ -246,7 +247,7 @@ class QueryBuilder
      * @param $sql
      * @return bool|PDOStatement
      */
-    private function statement($sql){
+    protected function statement($sql){
         return $this->conn->prepare($sql);
     }
 
@@ -304,7 +305,7 @@ class QueryBuilder
      * @param array $values
      * @return int|null
      */
-    private function execute(string $sql, array $values){
+    public function execute(string $sql, array $values){
         $statement = $this->statement($sql);
         if ($statement && $statement->execute(array_values($values))) {
             return $statement->rowCount();
