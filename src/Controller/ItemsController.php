@@ -2,19 +2,21 @@
 namespace App\Controller;
 
 use App\Model\Entity\Item;
-use App\Model\Table\ItemTable;
+use App\Model\Table\ItemsTable;
 use PlugRoute\Http\Request;
 use PlugRoute\Http\Response;
 
 /**
  * Class ItemsController
  * @package App\Controller
+ * @property ItemsTable $Items
  */
 class ItemsController extends Controller
 {
     /**
      * ItemsController constructor.
      * @param Request $request
+     * @param Response $response
      * @throws \App\Resources\Exceptions\MissingLayoutException
      */
     public function __construct(Request $request, Response $response)
@@ -27,8 +29,7 @@ class ItemsController extends Controller
      */
     public function index(){
 
-        $table = new ItemTable();
-        $items = $table->getAll();
+        $items = $this->Items->getAll();
 
         $this->View->set("items", $items)
             ->setView('Items.index')
@@ -59,8 +60,7 @@ class ItemsController extends Controller
             $item->price    = $data['price'];
             $item->quantity = $data['quantity'];
 
-            $table = new ItemTable();
-            $rt = $table->save($item);
+            $rt = $this->Items->save($item);
             if(!is_null($rt)){
                 $this->View->setSuccessMessage('Item cadastrado com sucesso!');
                 $this->getRequest()->redirectToRoute('items');
@@ -75,8 +75,7 @@ class ItemsController extends Controller
         if($this->getRequest()->getMethod() == "DELETE"){
             $id = $this->getRequest()->getRequisitionBody("DELETE")['id'];
 
-            $table = new ItemTable();
-            $rt = $table->delete($id);
+            $rt = $this->Items->delete($id);
 
             $msg = [ 'msg' => 'erro' ];
             if(!is_null($rt))
@@ -84,5 +83,32 @@ class ItemsController extends Controller
 
             echo $this->getResponse()->json($msg);
         }
+    }
+
+    public function edit(){
+        $id = $this->getRequest()->parameter('id');
+        $item = $this->Items->getById($id);
+
+        if(is_null($item)){
+            $this->View->setErrorMessage("Página não existente!");
+            $this->getRequest()->redirectToRoute('items');
+        }
+
+        if($this->getRequest()->getMethod() == "POST"){
+
+            $data = $this->getRequest()->getBodyPostRequest();
+            $item = $this->Items->patchEntity($data, $item);
+
+            $rt = $this->Items->update($item);
+
+            if(!is_null($rt) && $rt == 1) {
+                $this->View->setSuccessMessage('Item atualizado com sucesso!');
+                $this->getRequest()->redirectToRoute('items');
+            } else {
+                $this->View->setErrorMessage('Erro ao atualizar o item!');
+            }
+        }
+
+        $this->View->set('item', $item)->setView('Items.edit')->render();
     }
 }
