@@ -35,8 +35,11 @@
                 <td><?= $item->quantity ?></td>
                 <td><?= $item->created_at ?></td>
                 <td><?= $item->updated_at ?></td>
-                <td>
-                    <button class="btn btn-sm btn-danger btnApagar" data-id="<?= $item->id ?>">
+                <td class="text-center">
+                    <a class="btn btn-sm btn-warning" href="/itens/editar/<?= $item->id ?>">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <button class="btn btn-sm btn-danger btnApagar text-dark" data-id="<?= $item->id ?>">
                         <i class="fa fa-trash"></i>
                     </button>
                 </td>

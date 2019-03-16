@@ -10,6 +10,7 @@ use \PlugRoute\Http\Request;
 /**
  * Class UsersController
  * @package App\Controller
+ * @property UsersTable $Users
  */
 class UsersController extends Controller
 {
@@ -28,8 +29,7 @@ class UsersController extends Controller
      */
     public function index() {
 
-        $table = new UsersTable();
-        $users = $table->getAll();
+        $users = $this->Users->getAll();
 
         $this->View->set('users', $users);
         $this->View->setView('Users.index');

@@ -4,10 +4,10 @@
  */
 ?>
 <div class="col-sm-12">
-    <a href="/itens" class="btn btn-success btn-sm float-right">
+    <a href="/servicos" class="btn btn-success btn-sm float-right">
         <i class="fa fa-arrow-left"></i>
     </a>
-    <h3>Cadastrar Novo Item</h3>
+    <h3>Cadastrar Novo Serviço</h3>
     <hr>
 </div>
 <div class="col-sm-12">
@@ -23,8 +23,8 @@
                 <input type="text" class="form-control" name="price" id="price" placeholder="Preço">
             </div>
             <div class="form-group col-md-4">
-                <label for="quantity">Quantidade</label>
-                <input type="quantity" class="form-control" name="quantity" id="quantity" placeholder="Quantidade">
+                <label for="description">Descrição</label>
+                <input type="description" class="form-control" name="description" id="description" placeholder="Descrição">
             </div>
         </div>
         <div class="form-row">
