@@ -1,3 +1,5 @@
 src/Resources/AppConfig.php
+.idea/
+.idea
 .idea/Pandora.iml
 .idea/workspace.xml

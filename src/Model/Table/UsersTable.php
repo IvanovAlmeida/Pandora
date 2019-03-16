@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\Entity;
 use App\Model\Entity\User;
 
 /**
