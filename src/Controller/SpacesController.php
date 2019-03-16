@@ -92,7 +92,7 @@ class SpacesController extends  Controller
             }
         }
 
-        $this->View->set('espaco', $space)->setView('Space.edit')->render();
+        $this->View->set('space', $space)->setView('Spaces.edit')->render();
     }
 
 }

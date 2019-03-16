@@ -2,6 +2,7 @@
 
 namespace App\Model\Table;
 
+use App\Model\Entity\Contact;
 use App\Model\Entity\Entity;
 use App\Model\Entity\Space;
 
@@ -45,7 +46,11 @@ class SpacesTable extends Table
     }
 
     public function delete(int $id){
-        return $this->query->table('spaces')->where(['id = ?'])->delete([$id]);
+        return $this->query
+                    ->table('spaces, contacts')
+                    ->where(['spaces.id = ?'])
+                    ->join('inner join contacts on contacts.id = spaces.contact_id')
+                    ->delete([$id]);
     }
 
     public function getById(int $id){
@@ -54,18 +59,46 @@ class SpacesTable extends Table
             ->class(Space::class)
             ->where(['id = ?'])
             ->select([$id]);
-        if(!is_null($busca) && count($busca) > 0)
-            return $busca[0];
+
+        if(!is_null($busca) && count($busca) > 0){
+            $space = $busca[0];
+
+            if(!is_null($space->contact_id) && $space->contact_id != 0){
+                $contacts = $this->query->table('contacts')
+                    ->class(Contact::class)
+                    ->where(['id = ?'])
+                    ->select([$space->contact_id]);
+                if(!is_null($contacts) && count($contacts) > 0)
+                    $space->Contact = $contacts[0];
+            } else {
+                $space->Contact = new Contact();
+            }
+            return $space;
+        }
         return null;
     }
 
-    public function update(Space $i){
-        return $this->query->table('spaces')
-            ->fields(['name', 'telephone'])
+    public function update(Space $s){
+        $spa = $s->Contact;
+        $this->query->table('contacts')
+            ->fields([
+                'telephone', 'email', 'address',
+                'city', 'state', 'country', 'zipCode'
+            ])
             ->where(['id = ?'])
             ->update(
-                [$i->name, $i->telephone],
-                [$i->id]
+                [
+                    $spa->telephone, $spa->email, $spa->address,
+                    $spa->city, $spa->state, $spa->country, $spa->zipCode
+                ],
+                [$spa->id]
+            );
+        return $this->query->table('spaces')
+            ->fields(['name'])
+            ->where(['id = ?'])
+            ->update(
+                [$s->name],
+                [$s->id]
             );
     }
 
