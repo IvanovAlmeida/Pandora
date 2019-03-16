@@ -1,17 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Ana
- * Date: 15/03/2019
- * Time: 21:35
- */
 
 namespace App\Model\Entity;
 
-
+/**
+ * Class Space
+ * @package App\Model\Entity
+ * @property Contact $Contact
+ */
 class Space extends Entity
 {
     public $id;
     public $name;
-    public $telephone;
+    public $contact_id;
 }

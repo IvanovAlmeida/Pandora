@@ -21,6 +21,7 @@ class ClientsTable extends Table
      */
     public function getAll(){
         return $this->query->table('clients')
+                            ->fields(['contacts.*, clients.*'])
                             ->class(Client::class)
                             ->join("INNER JOIN contacts ON clients.contact_id = contacts.id")
                             ->select();
@@ -30,14 +31,28 @@ class ClientsTable extends Table
      * @param int $id
      * @return Client|null
      */
-    public function findById(int $id){
-        $contacts = $this->query->table('clients')
+    public function getById(int $id){
+        $clients = $this->query->table('clients')
                                 ->class(Client::class)
                                 ->where(['id = ?'])
                                 ->select([$id]);
 
-        if(!is_null($contacts) && count($contacts) > 0)
-            return $contacts[0];
+        if(!is_null($clients) && count($clients) > 0){
+            $client = $clients[0];
+
+            if(!is_null($client->contact_id) && $client->contact_id != 0){
+                $contacts = $this->query->table('contacts')
+                                        ->class(Contact::class)
+                                        ->where(['id = ?'])
+                                        ->select([$client->contact_id]);
+                if(!is_null($contacts) && count($contacts) > 0)
+                    $client->Contact = $contacts[0];
+            } else {
+                $client->Contact = new Contact();
+            }
+            return $client;
+        }
+
         return null;
     }
 
@@ -63,7 +78,29 @@ class ClientsTable extends Table
                             ->insert([$c->name, $c->cpf, $c->cnpj, $c->contact_id]);
     }
 
-    public function update(Client $c){}
+    public function update(Client $c){
+        $con = $c->Contact;
+        $this->query->table('contacts')
+                    ->fields([
+                        'telephone', 'email', 'address',
+                        'city', 'state', 'country', 'zipCode'
+                    ])
+                    ->where(['id = ?'])
+                    ->update(
+                        [
+                            $con->telephone, $con->email, $con->address,
+                            $con->city, $con->state, $con->country, $con->zipCode
+                        ],
+                        [$c->id]
+                    );
+        return $this->query->table('clients')
+                            ->fields(['name', 'cpf', 'cnpj'])
+                            ->where(['id = ?'])
+                            ->update(
+                                [$c->name, $c->cpf, $c->cnpj],
+                                [$c->id]
+                            );
+    }
 
 
     public function patchEntity(array $data, Entity $entity){

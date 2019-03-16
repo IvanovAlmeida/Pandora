@@ -30,7 +30,7 @@
             <tr>
                 <td><?= $espaco->id ?></td>
                 <td><?= $espaco->name ?></td>
-                <td><?= $espaco->name ?></td>
+                <td><?= $espaco->telephone ?></td>
                 <td><?= $espaco->created_at ?></td>
                 <td><?= $espaco->updated_at ?></td>
                 <td class="text-center">

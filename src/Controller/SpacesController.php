@@ -42,11 +42,8 @@ class SpacesController extends  Controller
 
             $data = $this->getRequest()->getBodyPostRequest();
 
-            $spaces           = new Space();
-            $spaces->name     = $data['name'];
-            $spaces->telephone    = $data['telephone'];
-
-            $rt = $this->Spaces->save($spaces);
+            $space = $this->Spaces->patchEntity($data, new Space());
+            $rt = $this->Spaces->save($space);
             if(!is_null($rt)){
                 $this->View->setSuccessMessage('Espaço cadastrado com sucesso!');
                 $this->getRequest()->redirectToRoute('spaces');
