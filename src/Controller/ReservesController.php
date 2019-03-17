@@ -28,6 +28,11 @@ class ReservesController extends Controller
      * @throws \App\Resources\Exceptions\MissingViewException
      */
     public function home(){
+
+        $reservas = $this->Reserves->proximos();
+
+        $this->View->set('proximos', $reservas);
+
         $this->View->setView('Reserves.home');
         $this->View->render();
     }

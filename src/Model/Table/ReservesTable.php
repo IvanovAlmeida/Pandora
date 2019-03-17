@@ -36,6 +36,18 @@ class ReservesTable extends Table
         return $reservas;
     }
 
+    public function proximos(){
+        $reservas = $this->query->table('reserves r')
+                                    ->fields(['r.*', 'c.name'])
+                                    ->join("INNER JOIN clients AS c ON c.id = r.client_id")
+                                    ->where(['r.eventDate >= NOW()'])
+                                    ->order(['eventDate'])
+                                    ->class(Reserve::class)
+                                    ->select();
+
+        return $reservas;
+    }
+
     public function save(Reserve $r){
         $rt = $this->query->table('reserves')
                             ->fields(['space_id', 'client_id', 'value', 'entry', 'eventDate', 'eventName'])

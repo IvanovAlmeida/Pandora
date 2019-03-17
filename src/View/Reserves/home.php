@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\Resources\View $this
+ * @var \App\Model\Entity\Reserve[] $proximos
  */
 ?>
 <div class="col-sm-12">
@@ -9,14 +10,20 @@
 </div>
 <div class="col-sm-12">
     <div class="row">
-        <?php for($i = 0; $i < 10; $i++): ?>
+        <?php foreach($proximos as $proximo): ?>
         <div class="col-sm-4 mb-4">
             <div class="card border-primary">
+                <div class="card-header">
+                    <?= $proximo->eventName ?>
+                </div>
                 <div class="card-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab animi deleniti dolorum esse excepturi expedita ipsa iusto magni maiores maxime molestias natus nemo, nostrum placeat sint tempora voluptatibus. Iure, maiores.
+                    Data: <?= $proximo->eventDate ?> <br>
+                    Cliente: <?= $proximo->name ?> <br>
+                    Entrada: R$ <?= number_format($proximo->entry, 2, ',','.') ?><br>
+                    Valor Total: R$ <?= number_format($proximo->value, 2, ',','.') ?>
                 </div>
             </div>
         </div>
-        <?php endfor; ?>
+        <?php endforeach; ?>
     </div>
 </div>

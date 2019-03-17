@@ -13,7 +13,7 @@
         <input type="password" class="form-control" name="password" placeholder="Senha">
     </div>
     <div class="form-group">
-        <button type="button" class="btn btn-light btn-md" >Recuperar senha</button>
+        <!--<button type="button" class="btn btn-light btn-md" >Recuperar senha</button>-->
         <button type="submit" class="btn btn-primary btn-md float-right">Entrar</button>
     </div>
 </form>
